@@ -27,9 +27,10 @@ the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1
 2. This is the second screen shot
 
 == Changelog ==
-Noting yet
+0.2.1 plugin path bug fix
+0.2 beta version
 == Upgrade Notice ==
-Noting yet
+Upgrade now!!
 == Arbitrary section ==
 Noting yet
 

@@ -4,7 +4,7 @@
 Plugin Name: Geckon MCM Plugin
 Plugin URI: http://geckon.com
 Description: Geckon MCM Plugin
-Version: 0.2
+Version: 0.2.1
 Author: Gekcon.com
 Author URI: http://gekcon.com
 License: GPL2
@@ -52,7 +52,7 @@ GlobalParameters::getInstance()->set('settingsArray',$settingsArray);
 
 
 $prefix = WP_CONTENT_URL;
-$pluginFolder = "$prefix/plugins/mcm_plugin";
+$pluginFolder = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
 
 GlobalParameters::getInstance()->set('hidden_field_name',"mt_submit_hidden");
 
