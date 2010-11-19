@@ -4,7 +4,7 @@
 Plugin Name: Geckon MCM Plugin
 Plugin URI: http://geckon.com
 Description: Geckon MCM Plugin
-Version: 0.2.1
+Version: 0.2.2
 Author: Gekcon.com
 Author URI: http://gekcon.com
 License: GPL2
@@ -105,6 +105,7 @@ function headerfunction(){
 
 table.tabbernav{
 	 border-bottom: 1px solid #$border_bottom_color;
+	 margin-top: 3px;
 }
 
 table.tabbernav th.tabberactive

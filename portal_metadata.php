@@ -22,7 +22,7 @@ function GetMetadata($objectId, $langID, $metadataString){
 		$langName = GetLanguageName($langID);
 		
 		$matadataXML = simplexml_load_string($MetadataInfo -> MetadataXml);
-		echo "<div class=\"tabbertab\" title='$langName'><table>";
+		echo "<div class=\"tabbertab\" title='$langName'><table style='margin:0px;'>";
 		
 		
 		foreach ($metadataNamesArray as $metadataName) {
