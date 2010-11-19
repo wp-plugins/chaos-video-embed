@@ -4,7 +4,7 @@
 Plugin Name: Geckon MCM Plugin
 Plugin URI: http://geckon.com
 Description: Geckon MCM Plugin
-Version: 0.3
+Version: 0.3.1
 Author: Gekcon.com
 Author URI: http://gekcon.com
 License: GPL2
