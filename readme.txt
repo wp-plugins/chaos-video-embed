@@ -3,7 +3,7 @@ Contributors: geckon
 Donate link: http://geckon/
 Tags: video, embed, ChAos, geckon, MCM, portal
 Requires at least: 3.0
-Tested up to: 3.0
+Tested up to: 3.1
 Stable tag: 4.3
 
 == Description ==
