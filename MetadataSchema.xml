@@ -1,0 +1,58 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:element name="xml">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Title" type="xs:string" />
+        <xs:element name="Abstract" type="xs:string" />
+        <xs:element name="Description" type="xs:string" />
+        <xs:element name="CreatedDate" type="xs:date" />
+        <xs:element name="Contributor">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Person">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="Role" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Creator">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Person">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="Role" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TechnicalComment" type="xs:string" />
+        <xs:element name="Location" type="xs:string" />
+        <xs:element name="Version" type="xs:string" />
+        <xs:element name="RightsCode" type="xs:string" />
+        <xs:element name="RightsDescription" type="xs:string" />
+        <xs:element name="Chapters">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Chapter">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="FileID" type="xs:unsignedByte" />
+                    <xs:element name="Title" type="xs:string" />
+                    <xs:element name="Abstract" type="xs:string" />
+                    <xs:element name="InTimeCode" type="xs:SMK_TimeSelector" />
+                    <xs:element name="OutTimeCode" type="xs:SMK_TimeSelector" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

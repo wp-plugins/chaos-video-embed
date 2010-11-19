@@ -1,0 +1,49 @@
+/* $Id: example.css,v 1.5 2006/03/27 02:44:36 pat Exp $ */
+
+/*--------------------------------------------------
+  REQUIRED to hide the non-active tab content.
+  But do not hide them in the print stylesheet!
+  --------------------------------------------------*/
+.tabberlive .tabbertabhide {
+ display:none;
+}
+
+/*--------------------------------------------------
+  .tabber = before the tabber interface is set up
+  .tabberlive = after the tabber interface is set up
+  --------------------------------------------------*/
+.tabber {
+}
+.tabberlive {
+ 
+}
+
+/*--------------------------------------------------
+  ul.tabbernav = the tab navigation list
+  li.tabberactive = the active tab
+  --------------------------------------------------*/
+table.tabbernav
+{
+ margin:0;
+ margin-bottom: 0px !important;
+ padding: 0px !important;
+ border-bottom: 0px solid #778;
+ font-weight:bold;
+ border-collapse:collapse;
+
+}
+
+table.tabbernav th
+{
+ margin: 0px 10px 0px 10px;
+ padding:4px, 8px;
+}
+
+
+
+
+table.tabbernav th.tabberactive a
+{
+ border-bottom: 0px solid #fff;
+}
+
