@@ -35,8 +35,8 @@ table.tabbernav
 
 table.tabbernav th
 {
- margin: 0px 10px 0px 10px;
- padding:4px, 8px;
+ margin: 0px !important;
+ padding:4px 8px  !important;
 }
 
 
