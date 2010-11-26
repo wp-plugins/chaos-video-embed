@@ -1,17 +1,17 @@
 <?PHP
 
 /*
-Plugin Name: Geckon MCM Plugin
+Plugin Name: Geckon ChAOS Plugin
 Plugin URI: http://geckon.com
 Description: Geckon MCM Plugin
-Version: 0.3.1
+Version: 0.3.2
 Author: Gekcon.com
 Author URI: http://gekcon.com
 License: GPL2
 */
 
-require_once("mcm_parameter.php");
-require_once("mcm_global_parameters.php");
+require_once("chaos_parameter.php");
+require_once("chaos_global_parameters.php");
 
 GlobalParameters::getInstance()->set('mcm_path_parameter',new McmParameter("MCM service path", "The start path of the MCM webservice", "MCM_API_PATH"));
 GlobalParameters::getInstance()->set('mcm_repositoryid_parameter',new McmParameter("MCM Repository ID", "The repository ID", "MCM_RepositoryID"));
@@ -29,12 +29,18 @@ GlobalParameters::getInstance()->set('mcm_player_width_parameter',new McmParamet
 GlobalParameters::getInstance()->set('mcm_player_height_parameter',new McmParameter("Player height", "Height of the videoplayer ", "MCM_PLAYER_HEIGHT"));
 GlobalParameters::getInstance()->set('mcm_metadata_width_parameter',new McmParameter("Metadata width", "Width of the metadata field", "MCM_METADATA_WIDTH"));
 
+GlobalParameters::getInstance()->set('mcm_show_metadata_parameter',new McmParameter("Show metadata", "Wether metadata is to be shown or not", "MCM_SHOW_METADATA_WIDTH"));
+
+
+
 
 
 $mcm_path_parameter =  GlobalParameters::getInstance()->get('mcm_path_parameter');
 $mcm_repositoryid_parameter =  GlobalParameters::getInstance()->get('mcm_repositoryid_parameter');
 $mcm_clientid_parameter =  GlobalParameters::getInstance()->get('mcm_clientid_parameter');
 $mcm_channelid_parameter = GlobalParameters::getInstance()->get('mcm_channelId_parameter');
+
+
 
 $mcm_active_tab_bg_color_parameter = GlobalParameters::getInstance()->get('mcm_active_tab_bg_color_parameter');
 $mcm_tabs_bottom_border_color_parameter = GlobalParameters::getInstance()->get('mcm_tabs_bottom_border_color_parameter');
@@ -60,20 +66,23 @@ GlobalParameters::getInstance()->set('hidden_field_name',"mt_submit_hidden");
 GlobalParameters::getInstance()->set('pluginFolder',$pluginFolder);
 
 
+require_once("Timer.php");
+
+require_once("chaos_update_wp_settings.php");
+
+require_once("chaos_check_setup.php");
 
 
-require_once("mcm_update_wp_settings.php");
 
-require_once("mcm_check_setup.php");
-require_once("mcm_plugin_hooks.php");
 
-require_once("start_session.php");
 
-require_once("portal_settins_menu.php");
-require_once("mcm_session.php");
-require_once("portal_metadata.php");
-require_once("languages.php");
-require_once("portal_metabox.php");
+require_once("chaos_settins_menu.php");
+
+require_once("chaos_metadata.php");
+
+
+
+require_once("chaos_asset_search_box.php");
 
 
 
@@ -85,10 +94,13 @@ $mcmplayer_counter = 0;
 
 
 
-
+function StartSession(){
+	require_once("chaos_start_session.php");
+	
+}
 
 function headerfunction(){
-	
+	StartSession();
 	
 	$pluginFolder = GlobalParameters::getInstance()->get('pluginFolder');
 
@@ -99,7 +111,7 @@ function headerfunction(){
 	$border_bottom_color = GlobalParameters::getInstance()->get('mcm_tabs_bottom_border_color_parameter')->GetValue();
 
 
-	echo "<link rel='stylesheet' href='$pluginFolder/tab_style.css' TYPE='text/css' MEDIA='screen'>";
+	echo "<link rel='stylesheet' href='" . $pluginFolder .  "css/tab_style.css' TYPE='text/css' MEDIA='screen'>";
 	echo "<style>
 
 
@@ -157,7 +169,8 @@ function render_mcm_player($match){
 
 	$metadataWidth = $mcm_metadata_width_parameter->GetValue();
 
- 
+ 	$show_metadata = GlobalParameters::getInstance()->get('mcm_show_metadata_parameter')->GetValue();
+	
    
    if(preg_match("/objectId=\"(.*?)\"/", $match[1], $args)){
 	    $objectID = $args[1];
@@ -183,6 +196,13 @@ function render_mcm_player($match){
 	    $autoStartSetting = $args[1];
 	};
 	
+	if(preg_match("/showmetadata=\"(.*?)\"/", $match[1], $args)){
+	    $show_metadata = $args[1];
+	};
+	
+	
+	
+	
 	$repId = $mcm_repositoryid_parameter->GetValue();
  
    $embedServiceURL = $mcm_path_parameter->GetValue(). "Object_GetEmbedHtmlByID?objectID=" . $objectID . "&playerSettingID=25658&width=" . $width . "&height=" . $height . "&autoPlay=" . $autoStartSetting . "&startPosition=0";
@@ -192,9 +212,10 @@ function render_mcm_player($match){
    $xml = simplexml_load_string($embedCodeXML); 
    
    echo $xml->EmbedCode;
-   
-   
-   RenderMetadata($objectID,$metadatas,$languages, $metadataWidth);
+ 
+   if($show_metadata == "true"){
+   		RenderMetadata($objectID,$metadatas,$languages, $metadataWidth);
+   }
  
 	
 }
@@ -203,6 +224,10 @@ function contentfunction($content)
 {
 	return preg_replace_callback('/\[mcmplayer ([A-Za-z0-9\-_\/\?\&\#\%\"\ \,\.\=@:;]+)\]/', 'render_mcm_player', $content);
 }
+
+
+
+require_once("chaos_plugin_hooks.php");
 
 
 ?>

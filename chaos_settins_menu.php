@@ -2,7 +2,7 @@
 
 
 
-include("portal_settings_menu_functions.php");
+include("chaos_settings_menu_functions.php");
 
 
 
@@ -12,16 +12,20 @@ include("portal_settings_menu_functions.php");
 
 
 function mcm_plugin_menu() {
-	add_options_page('MCM Options', 'MCM', 'manage_options', 'my-unique-identifier', 'mcm_plugin_options');
+	StartSession();
+	add_options_page('MCM Options', 'ChAOS', 'manage_options', 'my-unique-identifier', 'mcm_plugin_options');
 }
 
 function mcm_plugin_options() {
+	
+	
 	$settingsArray =GlobalParameters::getInstance()->get('settingsArray');
 	
 	$mcm_path_parameter =GlobalParameters::getInstance()->get('mcm_path_parameter');
 	$mcm_metadata_names_opt_name = GlobalParameters::getInstance()->get('mcm_metadata_names_opt_name');
 	$mcm_langIDs_opt_name = GlobalParameters::getInstance()->get('mcm_langIDs_opt_name');
 	$mcm_autostart_parameter =GlobalParameters::getInstance()->get('mcm_autostart_parameter');
+	$mcm_show_metadata_parameter =GlobalParameters::getInstance()->get('mcm_show_metadata_parameter');
 	$mcm_metadatas_parameter =GlobalParameters::getInstance()->get('mcm_metadatas_parameter');
 	$mcm_languageid_parameter =GlobalParameters::getInstance()->get('mcm_languageid_parameter');
 	$hidden_field_name =GlobalParameters::getInstance()->get('hidden_field_name');
@@ -99,7 +103,23 @@ function mcm_plugin_options() {
 	}
 	
 	
-	RenderSetting("Auto start", "<select name='" . $mcm_autostart_parameter->wp_option_name . "'>" . $options .  "</select>");
+	RenderSetting("Auto start", "<select name='" . $mcm_autostart_parameter->wp_option_name . "'>" . $options .  "</select>", "Whether videos should start automatically");
+	
+	
+	$show_metadata_options;
+	$shwo_metadata_value = $mcm_show_metadata_parameter->GetValue();
+	
+	
+	if($shwo_metadata_value =="true"){
+		$show_metadata_options =  "<option value='true' selected>True</option><option value='false'>False</option>";		
+	}
+	else{
+		$show_metadata_options =  "<option value='true'>True</option><option value='false' selected>False</option>";	
+	}
+	
+	
+	RenderSetting("Show metadata", "<select name='" . $mcm_show_metadata_parameter->wp_option_name . "'>" . $show_metadata_options .  "</select>", "Whether metadata is to be shown or not");
+	
 	
 	
 	echo "<p><input type='hidden' name='metadataNames'></p>";

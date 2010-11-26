@@ -57,7 +57,8 @@ function GetMetadata($objectId, $langID, $metadataString){
 
 
 function RenderMetadata($objectID,$metadataString, $languages, $metadataWidth){
-
+	
+	require_once("chaos_languages.php");
 	
 	$mcm_path_parameter =GlobalParameters::getInstance()->get('mcm_path_parameter');
 

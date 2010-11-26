@@ -10,7 +10,8 @@ function CheckIfSetupIsDone(){
 		return 0;	
 	} 
 	else{
-	
+		return 1;
+		/*
 		$path =$mcm_path_parameter->GetValue() . "Session_Start?repositoryID=" . $mcm_repositoryid_parameter->GetValue() . "&clientSettingID=" . $mcm_clientid_parameter->GetValue();
 		
 		if(is_valid_url($path)){
@@ -21,6 +22,7 @@ function CheckIfSetupIsDone(){
 		
 			return 0;	
 		}
+		*/
 		
 	}
 	

@@ -15,6 +15,8 @@ function myplugin_inner_custom_box() {
 	global $mcm_path_parameter;
 	global $pluginFolder;
 	
+	
+	
 	echo "<script type='text/javascript' src='$pluginFolder/copytoclipboard.js'></script>";
 
 	
@@ -27,7 +29,7 @@ function myplugin_inner_custom_box() {
 
 
 function RenderAssetSearchBox(){
-	
+	StartSession();
 	$mcm_path_parameter =GlobalParameters::getInstance()->get('mcm_path_parameter');
 	$sessionID = GlobalParameters::getInstance()->get('sessionID');
 

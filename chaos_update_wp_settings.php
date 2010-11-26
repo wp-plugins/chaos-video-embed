@@ -16,8 +16,6 @@ if( isset($_POST[$hidden_field_name]) && $_POST[$hidden_field_name] == 'Y' ) {
 		foreach ($settingsArray as $mcm_parameter) {
 				$opt_val = $_POST[$mcm_parameter->wp_option_name];
 				$mcm_parameter->SetValue($opt_val);
-			
-  
 		}
 		
 		$mcm_autostart_parameter = GlobalParameters::getInstance()->get('mcm_autostart_parameter');
@@ -27,6 +25,14 @@ if( isset($_POST[$hidden_field_name]) && $_POST[$hidden_field_name] == 'Y' ) {
 		$autostart =  $_POST[$mcm_autostart_parameter->wp_option_name];
 		
 		$mcm_autostart_parameter->SetValue($autostart);
+		
+		
+		
+		$mcm_show_metadata_parameter = GlobalParameters::getInstance()->get('mcm_show_metadata_parameter');
+		
+		$show_metadata =  $_POST[$mcm_show_metadata_parameter->wp_option_name];
+		
+		$mcm_show_metadata_parameter->SetValue($show_metadata);
 		
 		
 		

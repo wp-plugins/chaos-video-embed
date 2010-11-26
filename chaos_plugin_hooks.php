@@ -3,6 +3,7 @@ add_action('admin_menu', 'mcm_plugin_menu');
 
 
 if(CheckIfSetupIsDone($mcm_path_parameter,$mcm_clientid_parameter,$mcm_repositoryid_parameter)){	
+	
 	add_action('wp_head', 'headerfunction');
 	
 	add_filter('the_content', 'contentfunction');
