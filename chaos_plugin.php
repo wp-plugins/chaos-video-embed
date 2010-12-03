@@ -4,11 +4,12 @@
 Plugin Name: Geckon ChAOS Plugin
 Plugin URI: http://geckon.com
 Description: Geckon MCM Plugin
-Version: 0.3.2
+Version: 0.5.1
 Author: Gekcon.com
 Author URI: http://gekcon.com
 License: GPL2
 */
+
 
 require_once("chaos_parameter.php");
 require_once("chaos_global_parameters.php");
@@ -144,6 +145,7 @@ $languages;
 
 
 function render_mcm_player($match){
+	 
 	$mcm_path_parameter =GlobalParameters::getInstance()->get('mcm_path_parameter');
 	$mcm_clientid_parameter = GlobalParameters::getInstance()->get('mcm_clientid_parameter');
 	$mcm_repositoryid_parameter = GlobalParameters::getInstance()->get('mcm_repositoryid_parameter');
@@ -205,7 +207,7 @@ function render_mcm_player($match){
 	
 	$repId = $mcm_repositoryid_parameter->GetValue();
  
-   $embedServiceURL = $mcm_path_parameter->GetValue(). "Object_GetEmbedHtmlByID?objectID=" . $objectID . "&playerSettingID=25658&width=" . $width . "&height=" . $height . "&autoPlay=" . $autoStartSetting . "&startPosition=0";
+   $embedServiceURL = $mcm_path_parameter->GetValue(). "Object_GetEmbedHtmlByID?objectID=" . $objectID . "&sessionID=" . GlobalParameters::getInstance()->get('sessionID') . "&playerSettingID=25658&width=" . $width . "&height=" . $height . "&autoPlay=" . $autoStartSetting . "&startPosition=0";
 
    $embedCodeXML = file_get_contents($embedServiceURL);
  
@@ -216,6 +218,7 @@ function render_mcm_player($match){
    if($show_metadata == "true"){
    		RenderMetadata($objectID,$metadatas,$languages, $metadataWidth);
    }
+
  
 	
 }
@@ -228,6 +231,7 @@ function contentfunction($content)
 
 
 require_once("chaos_plugin_hooks.php");
+
 
 
 ?>

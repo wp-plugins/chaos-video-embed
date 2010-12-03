@@ -1,5 +1,34 @@
 <?PHP
 
+function GetMetadataFromXML($xml, $metadataString, $langId){
+
+	$metadataNamesArray = split(",", $metadataString);
+	
+	$metadataString;
+	
+	$langName = GetLanguageName($langId);
+
+	$matadataXML = $xml;
+	
+	
+	
+	echo "<div class=\"tabbertab\" title='$langName'><table style='margin:0px;'>";
+	
+	
+	foreach ($metadataNamesArray as $metadataName) {
+		$metadataData = $matadataXML -> $metadataName;
+		echo "<tr><td style='vertical-align: top;'><p><strong>" . $metadataName . "</strong></p></td><td style='vertical-align: top;'><p>" . $metadataData . "</p></td></tr>";
+		$metadataString .= $metadataData;
+	}
+	
+	echo "</table></div>";
+
+	
+	
+	return 	$metadataString;
+	
+	//echo $xml->MCM.Data.DTO.MetadataInfo->ObjectID";
+}
  
 function GetMetadata($objectId, $langID, $metadataString){
 
@@ -14,6 +43,7 @@ function GetMetadata($objectId, $langID, $metadataString){
 	
 	
 	$metadataString;
+	
 	
 	$xml = new SimpleXMLElement($path, NULL, true);
 	
@@ -60,8 +90,14 @@ function RenderMetadata($objectID,$metadataString, $languages, $metadataWidth){
 	
 	require_once("chaos_languages.php");
 	
-	$mcm_path_parameter =GlobalParameters::getInstance()->get('mcm_path_parameter');
+	$mcm_path_parameter =GlobalParameters::getInstance()->get('mcm_path_parameter')->GetValue();
 
+
+	$path =  $mcm_path_parameter . "Object_Get?sessionID=" . GlobalParameters::getInstance()->get('sessionID') .  "&objectID=" . $objectID . "&includeMetadata=true&metadataLanguageIDs=" . $languages;
+	$xml = new SimpleXMLElement($path, NULL, true);
+	
+	 
+	
 	$sessionID =GlobalParameters::getInstance()->get('sessionID');
 
 	$pluginFolder = GlobalParameters::getInstance()->get('pluginFolder');
@@ -77,9 +113,16 @@ function RenderMetadata($objectID,$metadataString, $languages, $metadataWidth){
 	$metadataAsSignleString;
 	
 	foreach ($langArray as $id) {
-   		if($id){	
-			$metadataAsSignleString .= GetMetadata($objectID, $id, $metadataString);
-		}
+		
+			$query = "MCM.Data.DTO.ExtendedObjectInfo/Metadata/MCM.Data.DTO.MetadataInfo[LanguageID=" . $id . "]/MetadataXml";
+			//print_r($xml->xpath($query));
+			$result = $xml->xpath($query);
+			
+			
+			GetMetadataFromXML(simplexml_load_string($result[0]), $metadataString, $id);
+			//echo "<h1>TEST: " . $xml[0] . "</h1>";
+			//$metadataAsSignleString .= GetMetadata($objectID, $id, $metadataString);
+		
 	}
 	
 	
