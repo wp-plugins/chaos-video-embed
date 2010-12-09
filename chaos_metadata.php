@@ -119,7 +119,7 @@ function RenderMetadata($objectID,$metadataString, $languages, $metadataWidth){
 			$result = $xml->xpath($query);
 			
 			
-			GetMetadataFromXML(simplexml_load_string($result[0]), $metadataString, $id);
+			$metadataAsSignleString .=GetMetadataFromXML(simplexml_load_string($result[0]), $metadataString, $id);
 			//echo "<h1>TEST: " . $xml[0] . "</h1>";
 			//$metadataAsSignleString .= GetMetadata($objectID, $id, $metadataString);
 		
@@ -135,6 +135,7 @@ function RenderMetadata($objectID,$metadataString, $languages, $metadataWidth){
 	echo "<script type='text/javascript' src='$pluginFolder/tabber.js'></script>";	
 	
 	update_post_meta(get_the_ID(), "mcm_search_text", $metadataAsSignleString);
+
 																	
 	/*
 	echo "<div class=\"tabber\">
