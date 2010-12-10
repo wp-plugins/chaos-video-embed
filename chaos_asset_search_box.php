@@ -9,7 +9,10 @@ function portal_meta_box() {
 } 
 
 // Create the function use in the action hook
-add_action('admin_print_scripts', 'add_admin_chaosscripts');
+
+if($_GET['action'] == "edit"){ 
+	add_action('admin_print_scripts', 'add_admin_chaosscripts');
+}
 
 function add_admin_chaosscripts(){
 	$pluginFolder = GlobalParameters::getInstance()->get('pluginFolder');
@@ -23,7 +26,7 @@ function add_admin_chaosscripts(){
 	*/
 	$copyToClipBoardScriptPath = $pluginFolder . "copytoclipboard.js";
 	
-	wp_enqueue_script("copyToClipBoard", $copyToClipBoardScriptPath);
+	wp_enqueue_script("copyToClipBoard", $copyToClipBoardScriptPath, false, '1.0.0', true);
 }
 
 function myplugin_inner_custom_box() {

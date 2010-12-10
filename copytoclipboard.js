@@ -1,11 +1,12 @@
 function copyToClipboard(txt) {
 	
+	if(switchEditors != undefined){
+		switchEditors.go('content', 'html');
 	
-	switchEditors.go('content', 'html');
-	
-	var appendText = "[mcmplayer objectId=\"" + txt + "\"]";
+		var appendText = "[mcmplayer objectId=\"" + txt + "\"]";
 
-	insertAtCursor(edCanvas, appendText);
+		insertAtCursor(edCanvas, appendText);
+	}
 
 }
 
