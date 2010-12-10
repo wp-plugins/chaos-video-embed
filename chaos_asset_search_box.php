@@ -9,23 +9,33 @@ function portal_meta_box() {
 } 
 
 // Create the function use in the action hook
+add_action('admin_print_scripts', 'add_admin_chaosscripts');
+
+function add_admin_chaosscripts(){
+	$pluginFolder = GlobalParameters::getInstance()->get('pluginFolder');
+	
+	
+	/*
+	echo "<script type='text/javascript' src='$pluginFolder" . "copytoclipboard.js'>
+	
+	</script>";
+	
+	*/
+	$copyToClipBoardScriptPath = $pluginFolder . "copytoclipboard.js";
+	
+	wp_enqueue_script("copyToClipBoard", $copyToClipBoardScriptPath);
+}
 
 function myplugin_inner_custom_box() {
 	global $sessionID;
 	global $mcm_path_parameter;
-	$pluginFolder = GlobalParameters::getInstance()->get('pluginFolder');
 	
-	
-	
-	echo "<script type='text/javascript' src='$pluginFolder" . "copytoclipboard.js'>
-	
-	</script>";
 
 	
 	RenderAssetSearchBox();
 		
 	// Use nonce for verification
-  wp_nonce_field( plugin_basename(__FILE__), 'myplugin_noncename' );
+  	wp_nonce_field( plugin_basename(__FILE__), 'myplugin_noncename' );
 
 }
 
