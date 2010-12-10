@@ -4,7 +4,7 @@
 Plugin Name: Geckon ChAOS Plugin
 Plugin URI: http://geckon.com
 Description: Geckon MCM Plugin
-Version: 0.5.2
+Version: 0.5.3
 Author: Gekcon.com
 Author URI: http://gekcon.com
 License: GPL2

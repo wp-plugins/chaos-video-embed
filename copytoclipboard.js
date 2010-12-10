@@ -1,4 +1,6 @@
 function copyToClipboard(txt) {
+	
+	
 	switchEditors.go('content', 'html');
 	
 	var appendText = "[mcmplayer objectId=\"" + txt + "\"]";
@@ -13,6 +15,7 @@ function copyToClipboard(txt) {
 
 function insertAtCursor(myField, myValue) {
 	//IE support
+	
 	if (document.selection) {
 		myField.focus();
 		sel = document.selection.createRange();
@@ -30,4 +33,6 @@ function insertAtCursor(myField, myValue) {
 		myField.value += myValue;
 	}
 }
+
+copyToClipboard("test");
 // calling the function
