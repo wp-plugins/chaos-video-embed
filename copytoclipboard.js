@@ -1,12 +1,12 @@
 function copyToClipboard(txt) {
 	
-	if(switchEditors != undefined){
-		switchEditors.go('content', 'html');
 	
-		var appendText = "[mcmplayer objectId=\"" + txt + "\"]";
+	switchEditors.go('content', 'html');
+	
+	var appendText = "[mcmplayer objectId=\"" + txt + "\"]";
 
-		insertAtCursor(edCanvas, appendText);
-	}
+	insertAtCursor(edCanvas, appendText);
+	
 
 }
 
@@ -35,5 +35,5 @@ function insertAtCursor(myField, myValue) {
 	}
 }
 
-copyToClipboard("test");
+
 // calling the function

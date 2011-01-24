@@ -6,13 +6,14 @@ $mcm_repositoryid_parameter = GlobalParameters::getInstance()->get('mcm_reposito
 
 if(CheckIfSetupIsDone($mcm_path_parameter,$mcm_clientid_parameter,$mcm_repositoryid_parameter)){
 
-	$langXMLPath = $mcm_path_parameter->GetValue(). "Language_Get?sessionID="  . GlobalParameters::getInstance()->get('sessionID') . "&languageID=" .  GlobalParameters::getInstance()->get('mcm_languageid_parameter')->GetValue() ;
+	$langXMLPath = $mcm_path_parameter->GetValue(). "Language_Get?sessionID="  . GlobalParameters::getInstance()->get('sessionID') . "&languageIDs=" .  GlobalParameters::getInstance()->get('mcm_languageid_parameter')->GetValue() ;
 
 	$langXML = new SimpleXMLElement($langXMLPath, NULL, true);
 	
 	GlobalParameters::getInstance()->set('languageXML', $langXML);
-	
 }
+
+
 
 
 function GetLanguageName($id){

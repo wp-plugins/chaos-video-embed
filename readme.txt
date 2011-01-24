@@ -27,6 +27,8 @@ the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1
 2. This is the second screen shot
 
 == Changelog ==
+0.9 plugin updated to support new api
+0.7 text before player correction
 0.6 minor updates
 0.5.3 javascript copy/paste bugfix
 0.5.1 metadata insert into customfield corrected

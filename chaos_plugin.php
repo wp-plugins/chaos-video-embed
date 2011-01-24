@@ -4,7 +4,7 @@
 Plugin Name: Geckon ChAOS Plugin
 Plugin URI: http://geckon.com
 Description: Geckon MCM Plugin
-Version: 0.6
+Version: 0.9
 Author: Gekcon.com
 Author URI: http://gekcon.com
 License: GPL2
@@ -16,6 +16,8 @@ require_once("chaos_global_parameters.php");
 
 GlobalParameters::getInstance()->set('mcm_path_parameter',new McmParameter("MCM service path", "The start path of the MCM webservice", "MCM_API_PATH"));
 GlobalParameters::getInstance()->set('mcm_repositoryid_parameter',new McmParameter("MCM Repository ID", "The repository ID", "MCM_RepositoryID"));
+
+GlobalParameters::getInstance()->set('mcm_playersettingid_parameter',new McmParameter("MCM Player setting ID", "The player setting ID", "MCM_PlayerSettingID"));
 
 GlobalParameters::getInstance()->set('mcm_clientid_parameter',new McmParameter("Client ID", "The client ID", "MCM_ClientID"));
 GlobalParameters::getInstance()->set('mcm_channelId_parameter',new McmParameter("Channel ID", "ID of selected channel", "MCM_CHANNEL_ID"));
@@ -33,11 +35,20 @@ GlobalParameters::getInstance()->set('mcm_metadata_width_parameter',new McmParam
 GlobalParameters::getInstance()->set('mcm_show_metadata_parameter',new McmParameter("Show metadata", "Wether metadata is to be shown or not", "MCM_SHOW_METADATA_WIDTH"));
 
 
+GlobalParameters::getInstance()->set('mcm_searchassetthumbnailformat_parameter',new McmParameter("Thumbnail format name", "Name of the thumbnail format (used in asset search box)", "MCM_AssetThumbnailFormatName"));
+
+
 
 
 
 $mcm_path_parameter =  GlobalParameters::getInstance()->get('mcm_path_parameter');
 $mcm_repositoryid_parameter =  GlobalParameters::getInstance()->get('mcm_repositoryid_parameter');
+
+$mcm_playersettingid_parameter =  GlobalParameters::getInstance()->get('mcm_playersettingid_parameter');
+
+$mcm_thumbnailformat_parameter =  GlobalParameters::getInstance()->get('mcm_searchassetthumbnailformat_parameter');
+
+
 $mcm_clientid_parameter =  GlobalParameters::getInstance()->get('mcm_clientid_parameter');
 $mcm_channelid_parameter = GlobalParameters::getInstance()->get('mcm_channelId_parameter');
 
@@ -49,7 +60,7 @@ $mcm_player_width_parameter = GlobalParameters::getInstance()->get('mcm_player_w
 $mcm_player_height_parameter = GlobalParameters::getInstance()->get('mcm_player_height_parameter');
 $mcm_metadata_width_parameter = GlobalParameters::getInstance()->get('mcm_metadata_width_parameter');
 
-$settingsArray = array($mcm_path_parameter,$mcm_repositoryid_parameter,$mcm_channelid_parameter, $mcm_clientid_parameter, $mcm_active_tab_bg_color_parameter,$mcm_tabs_bottom_border_color_parameter, $mcm_player_width_parameter, $mcm_player_height_parameter,$mcm_metadata_width_parameter);
+$settingsArray = array($mcm_path_parameter,$mcm_repositoryid_parameter,$mcm_channelid_parameter, $mcm_clientid_parameter, $mcm_active_tab_bg_color_parameter,$mcm_tabs_bottom_border_color_parameter, $mcm_player_width_parameter, $mcm_player_height_parameter,$mcm_metadata_width_parameter, $mcm_playersettingid_parameter, $mcm_thumbnailformat_parameter);
 
 
 
@@ -150,6 +161,9 @@ function render_mcm_player($match){
 	$mcm_clientid_parameter = GlobalParameters::getInstance()->get('mcm_clientid_parameter');
 	$mcm_repositoryid_parameter = GlobalParameters::getInstance()->get('mcm_repositoryid_parameter');
 	
+	$mcm_playersettingid_parameter =  GlobalParameters::getInstance()->get('mcm_playersettingid_parameter');
+
+
 	$mcm_autostart_parameter =GlobalParameters::getInstance()->get('mcm_autostart_parameter');
 	$mcm_player_width_parameter =GlobalParameters::getInstance()->get('mcm_player_width_parameter');
 	$mcm_player_height_parameter =GlobalParameters::getInstance()->get('mcm_player_height_parameter');
@@ -174,6 +188,7 @@ function render_mcm_player($match){
  	$show_metadata = GlobalParameters::getInstance()->get('mcm_show_metadata_parameter')->GetValue();
 	
    
+   $returnString = "";
    if(preg_match("/objectId=\"(.*?)\"/", $match[1], $args)){
 	    $objectID = $args[1];
 	};
@@ -207,18 +222,25 @@ function render_mcm_player($match){
 	
 	$repId = $mcm_repositoryid_parameter->GetValue();
  
-   $embedServiceURL = $mcm_path_parameter->GetValue(). "Object_GetEmbedHtmlByID?objectID=" . $objectID . "&sessionID=" . GlobalParameters::getInstance()->get('sessionID') . "&playerSettingID=25658&width=" . $width . "&height=" . $height . "&autoPlay=" . $autoStartSetting . "&startPosition=0";
+   $embedServiceURL = $mcm_path_parameter->GetValue(). "Object_GetEmbedHtmlByID?objectID=" . $objectID . "&sessionID=" . GlobalParameters::getInstance()->get('sessionID') . "&playerSettingID=". $mcm_playersettingid_parameter->GetValue() . "&width=" . $width . "&height=" . $height . "&autoPlay=" . $autoStartSetting . "&startPosition=0";
+
+
 
    $embedCodeXML = file_get_contents($embedServiceURL);
  
    $xml = simplexml_load_string($embedCodeXML); 
    
-   echo $xml->EmbedCode;
+    $returnString .= $xml->EmbedCode;
  
+	
    if($show_metadata == "true"){
-   		RenderMetadata($objectID,$metadatas,$languages, $metadataWidth);
+   		$returnString .= RenderMetadata($objectID,$metadatas,$languages, $metadataWidth);
    }
+   
 
+
+
+	return  $returnString;
  
 	
 }
