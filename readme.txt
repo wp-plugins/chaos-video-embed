@@ -27,6 +27,7 @@ the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1
 2. This is the second screen shot
 
 == Changelog ==
+1.02 search truncate update
 1.01 thumbnail bug corrected
 1.0 update in thumbnail uri
 0.9 plugin updated to support new api
